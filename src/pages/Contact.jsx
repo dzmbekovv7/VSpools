@@ -14,8 +14,7 @@ const Contact = () => {
           At <span className="text-red-500 font-semibold">vspools</span>, we fuel the most exciting showdowns. Have a match idea, a partnership request, or just a crazy comparison? Let’s talk!
         </p>
       </section>
-
-   {/* Showdown Cards */}
+{/* Showdown Cards */}
 <section className="py-16 px-6 max-w-6xl mx-auto grid md:grid-cols-3 gap-10">
   {[
     {
@@ -23,52 +22,40 @@ const Contact = () => {
       description: "The eternal football debate. Who truly reigns supreme?",
       image:
         "https://i.pinimg.com/736x/d1/39/76/d1397674636d3fd0b78ce6485dbc322d.jpg",
-      gradient: "from-red-600 via-red-500 to-orange-500",
-      textColor: "text-white",
-      buttonTextColor: "text-black",
-      buttonBg: "bg-white hover:bg-gray-200",
+      bgColor: "bg-white",
     },
     {
       title: "🗳️ Trump vs Putin",
-      description:
-        "Two global icons. Politics, power, and personality collide.",
+      description: "Two global icons. Politics, power, and personality collide.",
       image:
         "https://i.pinimg.com/736x/e0/58/b0/e058b0e5a71fc3c52fba80c118622047.jpg",
-      gradient: "from-blue-700 via-blue-600 to-purple-500",
-      textColor: "text-white",
-      buttonTextColor: "text-black",
-      buttonBg: "bg-white hover:bg-gray-200",
+      bgColor: "bg-white",
     },
     {
       title: "⚔️ iPhone vs Android",
       description: "Which one dominates your pocket and your heart?",
       image:
         "https://i.pinimg.com/736x/4c/2c/67/4c2c67ec89f193ec465ca84b6ac09cb1.jpg",
-      gradient: "from-green-600 via-lime-500 to-yellow-400",
-      textColor: "text-black",
-      buttonTextColor: "text-white",
-      buttonBg: "bg-black hover:bg-gray-900",
+      bgColor: "bg-white",
     },
   ].map((card, index) => (
     <div
       key={index}
-      className={`bg-gradient-to-br ${card.gradient} rounded-2xl shadow-xl overflow-hidden hover:scale-105 transition-transform duration-300`}
+      className={`rounded-3xl shadow-lg overflow-hidden hover:shadow-2xl transition duration-300 transform hover:-translate-y-2 ${card.bgColor}`}
     >
       <div className="h-60 w-full overflow-hidden">
         <img
           src={card.image}
           alt={card.title}
-          className="w-full h-full object-cover object-center"
+          className="w-full h-full object-cover object-center transition-transform duration-300 hover:scale-105"
         />
       </div>
       <div className="p-6 flex flex-col justify-between h-60">
-        <h2 className={`text-xl md:text-2xl font-bold mb-2 ${card.textColor}`}>
+        <h2 className="text-xl md:text-2xl font-extrabold text-gray-800 mb-2">
           {card.title}
         </h2>
-        <p className={`text-sm ${card.textColor} mb-4`}>{card.description}</p>
-        <button
-          className={`${card.buttonBg} ${card.buttonTextColor} font-semibold py-2 px-4 rounded-full w-fit`}
-        >
+        <p className="text-gray-600 text-sm mb-4">{card.description}</p>
+        <button className="bg-black text-white font-semibold py-2 px-6 rounded-full hover:bg-gray-800 transition">
           Cast Your Vote
         </button>
       </div>
