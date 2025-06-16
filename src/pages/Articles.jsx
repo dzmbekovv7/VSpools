@@ -6,42 +6,36 @@ import { Link } from 'react-router-dom';
 
 const AshleyArticlesPage = () => {
   const [articles, setArticles] = useState([]);
-  const [visibleCount, setVisibleCount] = useState(6);
+  const [visibleCount, setVisibleCount] = useState(9);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [searchTerm, setSearchTerm] = useState('');
   const [filter, setFilter] = useState('newest');
 
 useEffect(() => {
-  const fetchArticles = async () => {
-    setLoading(true);
-    setError(null);
+ const fetchArticles = async () => {
+  setLoading(true);
+  setError(null);
 
-    const { data, error } = await supabase
-      .from('vspolls_articles')
-      .select('*')
-      .order('published_date', { ascending: false })
-      .limit(6);
+  const { data, error } = await supabase
+    .from('vspolls_articles')
+    .select('*')
+    .order('published_date', { ascending: false });
 
-    if (error) {
-      setError(error.message);
-      setArticles([]);
-    } else {
-      console.log('Полученные статьи:', data);
-      if (data && data.length > 0) {
-        console.log('Поля первой статьи:', Object.keys(data[0]));
-        console.log('URL изображения первой статьи:', data[0]?.image);
+  if (error) {
+    setError(error.message);
+    setArticles([]);
+  } else {
+    setArticles(data || []);
+  }
+  setLoading(false);
+};
 
-      }
-      setArticles(data || []);
-    }
-    setLoading(false);
-  };
 
   fetchArticles();
 }, []);
   const handleShowMore = () => {
-    setVisibleCount((prev) => prev + 6);
+    setVisibleCount((prev) => prev + 9);
   };
 
   const slugify = (text) =>
@@ -55,7 +49,6 @@ useEffect(() => {
     .sort((a, b) => {
       if (filter === 'newest') return new Date(b.published_date) - new Date(a.published_date);
       if (filter === 'oldest') return new Date(a.published_date) - new Date(b.published_date);
-      if (filter === 'popular') return b.reading_time - a.reading_time;
       return 0;
     });
   return (
@@ -91,7 +84,6 @@ useEffect(() => {
             {[
               { id: 'newest', label: 'Newest', icon: <Clock size={18} /> },
               { id: 'oldest', label: 'Oldest', icon: <Clock size={18} className="rotate-180" /> },
-              { id: 'popular', label: 'Popular', icon: <Star size={18} /> },
             ].map(({ id, label, icon }) => (
               <button
                 key={id}
@@ -176,6 +168,7 @@ useEffect(() => {
       );
     })}
   </section>
+  
 )}
 
         {/* Show More */}
